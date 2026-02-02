@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Calm - Meditation for You & Your Computer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Landing Page -->
+  <div id="landing-page" class="page active">
+    <div class="landing-content">
+      <div class="logo-icon">🧘</div>
+      <h1>System Calm</h1>
+      <p class="subtitle">A meditation app that cares about <em>your computer's</em> wellbeing too</p>
+      
+      <div class="version-badge">v1.3.7</div>
+      
+      <div class="feature-pills">
+        <span class="pill">📊 Monitors CPU stress</span>
+        <span class="pill">🧠 Adapts to system load</span>
+        <span class="pill">🔄 Self-optimizing</span>
+      </div>
+      
+      <button id="begin-session" class="primary-btn">
+        <span class="btn-text">Begin Session</span>
+        <span class="btn-glow"></span>
+      </button>
+      
+      <div class="session-info">
+        <span>⏱ 2-3 minutes</span>
+        <span>🎧 Headphones recommended</span>
+        <span>🔊 Audio required</span>
+      </div>
+      
+      <div class="warning-box">
+        <p>⚠️ This app monitors its own performance metrics and <em>responds emotionally</em> to system stress. It may exhibit unexpected behavior. <strong>This is intentional.</strong></p>
+      </div>
+      
+      <button id="about-btn" class="text-btn">What makes this different? →</button>
+      
+      <div class="judge-hint">
+        Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> during session to skip ahead
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div id="about-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <h2>🤔 What Makes This Different?</h2>
+      
+      <div class="about-section">
+        <h3>It's not meditating WITH you</h3>
+        <p>It's meditating <strong>FOR ITSELF</strong>. The app monitors its own CPU usage, frame rate, and memory. When it detects stress, it tries to help... by adding more features.</p>
+      </div>
+      
+      <div class="about-section highlight">
+        <h3>⚡ The Feedback Loop</h3>
+        <p>Watch what happens:</p>
+        <ol>
+          <li>App monitors its performance → uses CPU</li>
+          <li>Metrics show stress → app gets anxious</li>
+          <li>App adds "helpful" features → more CPU usage</li>
+          <li>More stress → more anxiety → more "help"</li>
+          <li>Eventually... it can't cope alone</li>
+        </ol>
+      </div>
+      
+      <div class="about-section">
+        <h3>🎭 The Twist</h3>
+        <p>The app will <em>literally</em> try to clone itself to handle the load. Multiple meditation instances. Multiple voices. All trying to calm you down. All making things worse.</p>
+      </div>
+      
+      <div class="about-section">
+        <h3>💭 The Point</h3>
+        <p>It's a meditation app having a panic attack while trying to be perfect. Sound familiar?</p>
+      </div>
+      
+      <div class="tech-stack">
+        <span>Web Audio API</span>
+        <span>Canvas</span>
+        <span>Performance API</span>
+        <span>Web Workers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meditation Session -->
+  <div id="session-page" class="page">
+    <canvas id="meditation-canvas"></canvas>
+    
+    <!-- Metrics Display -->
+    <div id="metrics-panel" class="metrics-panel">
+      <div class="panel-header">
+        <span class="panel-title">🖥️ System Vitals</span>
+        <span id="status-indicator" class="status-indicator">MONITORING</span>
+      </div>
+      <div class="metric main">
+        <span class="metric-label">My Anxiety Level</span>
+        <span id="anxiety-value" class="metric-value">0.0%</span>
+        <div class="metric-bar">
+          <div id="anxiety-bar" class="metric-fill"></div>
+        </div>
+      </div>
+      <div class="metric small">
+        <span class="metric-label">Frame Time</span>
+        <span id="frame-value" class="metric-value">16ms</span>
+      </div>
+      <div class="metric small">
+        <span class="metric-label">Helper Processes</span>
+        <span id="process-value" class="metric-value">1</span>
+      </div>
+      <div class="metric small">
+        <span class="metric-label">Visual Particles</span>
+        <span id="particle-value" class="metric-value">0</span>
+      </div>
+      <div class="metric small storage-metric">
+        <span class="metric-label">Cache Storage</span>
+        <span id="storage-value" class="metric-value">0 MB</span>
+      </div>
+      <div class="metric small bandwidth-metric">
+        <span class="metric-label">Data Processed</span>
+        <span id="bandwidth-value" class="metric-value">0 MB</span>
+      </div>
+      <div class="metric small network-metric hidden" id="network-metric">
+        <span class="metric-label">🌐 Network I/O</span>
+        <span id="network-value" class="metric-value">-- MB</span>
+      </div>
+    </div>
+
+    <!-- Action Log -->
+    <div id="action-log" class="action-log">
+      <div class="log-header">📋 What I'm Doing</div>
+      <div id="log-entries" class="log-entries"></div>
+    </div>
+
+    <!-- Narration Display -->
+    <div id="narration-display" class="narration-display">
+      <p id="narration-text"></p>
+    </div>
+
+    <!-- Session Controls -->
+    <div id="session-controls" class="session-controls">
+      <button id="end-session" class="control-btn">End Session</button>
+    </div>
+
+    <!-- Collapse Overlay -->
+    <div id="collapse-overlay" class="collapse-overlay hidden">
+      <div class="instance-grid" id="instance-grid">
+        <!-- Instances will be injected here -->
+      </div>
+    </div>
+
+    <!-- Resolution Screen -->
+    <div id="resolution-screen" class="resolution-screen hidden">
+      <div class="resolution-content">
+        <p class="resolution-text" id="resolution-text"></p>
+        <div class="resolution-stats">
+          <p>Peak Anxiety: <span id="peak-anxiety">0</span>%</p>
+          <p>Instances Created: <span id="instance-count">0</span></p>
+        </div>
+        <div class="resolution-buttons">
+          <button id="try-again" class="primary-btn">Try Again</button>
+          <button id="exit-session" class="control-btn">Exit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
