@@ -764,7 +764,7 @@ h1 {
   z-index: 5;
 }
 
-/* ===== Resolution Screen ===== */
+/* ===== Resolution Screen - BSOD Style ===== */
 .resolution-screen {
   position: fixed;
   top: 0;
@@ -788,6 +788,243 @@ h1 {
   opacity: 1;
 }
 
+/* BSOD Styling */
+.resolution-screen.bsod {
+  background: #0078D7;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.bsod-content {
+  color: white;
+  max-width: 900px;
+  padding: 3rem;
+  animation: bsodFadeIn 0.8s ease-out;
+}
+
+@keyframes bsodFadeIn {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Screen flash before BSOD */
+.resolution-screen.bsod::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  animation: bsodFlash 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes bsodFlash {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.bsod-sadface {
+  font-size: 8rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  line-height: 1;
+  animation: sadFaceGlitch 4s infinite;
+}
+
+@keyframes sadFaceGlitch {
+  0%, 95%, 100% { 
+    transform: translateX(0); 
+    opacity: 1;
+  }
+  96% { 
+    transform: translateX(-5px); 
+    opacity: 0.8;
+  }
+  97% { 
+    transform: translateX(5px); 
+    opacity: 0.9;
+  }
+  98% { 
+    transform: translateX(-3px); 
+    opacity: 0.85;
+  }
+  99% { 
+    transform: translateX(3px); 
+    opacity: 0.95;
+  }
+}
+
+.bsod-title {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.bsod-subtitle {
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.bsod-progress {
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.bsod-qr-section {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.bsod-qr {
+  flex-shrink: 0;
+}
+
+.qr-placeholder {
+  width: 80px;
+  height: 80px;
+  background: white;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.qr-row {
+  display: flex;
+  gap: 1px;
+  flex: 1;
+}
+
+.qr-row span {
+  flex: 1;
+  background: white;
+}
+
+.qr-row span.filled {
+  background: black;
+}
+
+.bsod-info {
+  font-size: 0.75rem;
+  text-align: left;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.bsod-info p {
+  margin: 0.25rem 0;
+}
+
+.bsod-url {
+  text-decoration: underline;
+  margin-bottom: 0.75rem !important;
+}
+
+.bsod-helpline {
+  margin-top: 0.75rem !important;
+}
+
+.bsod-stopcode {
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.bsod-failedwhat {
+  font-family: var(--font-mono);
+}
+
+.bsod-failedwhat span {
+  opacity: 0.8;
+}
+
+.bsod-stats {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.bsod-stats p {
+  margin: 0;
+}
+
+.bsod-stats span {
+  color: #7dd3fc;
+}
+
+.bsod-apology {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.bsod-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.bsod-btn {
+  padding: 0.75rem 1.5rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #0078D7;
+  background: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bsod-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.bsod-btn.secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bsod-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+/* Legacy resolution styles (kept for compatibility) */
 .resolution-content {
   text-align: center;
   max-width: 500px;
@@ -886,6 +1123,37 @@ h1 {
   
   .judge-hint {
     display: none;
+  }
+  
+  /* BSOD Mobile */
+  .bsod-content {
+    padding: 1.5rem;
+  }
+  
+  .bsod-sadface {
+    font-size: 5rem;
+  }
+  
+  .bsod-title {
+    font-size: 1.2rem;
+  }
+  
+  .bsod-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .bsod-qr-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .bsod-info {
+    text-align: center;
+  }
+  
+  .bsod-buttons {
+    justify-content: center;
   }
 }
 

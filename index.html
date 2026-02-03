@@ -156,17 +156,48 @@
       </div>
     </div>
 
-    <!-- Resolution Screen -->
-    <div id="resolution-screen" class="resolution-screen hidden">
-      <div class="resolution-content">
-        <p class="resolution-text" id="resolution-text"></p>
-        <div class="resolution-stats">
-          <p>Peak Anxiety: <span id="peak-anxiety">0</span>%</p>
-          <p>Instances Created: <span id="instance-count">0</span></p>
+    <!-- Resolution Screen - BSOD Style -->
+    <div id="resolution-screen" class="resolution-screen bsod hidden">
+      <div class="bsod-content">
+        <div class="bsod-sadface">:(</div>
+        <h1 class="bsod-title">Your meditation ran into a problem and needs to restart.</h1>
+        <p class="bsod-subtitle">We're just collecting some error info, and then we'll restart for you.</p>
+        <div class="bsod-progress">
+          <span id="bsod-percent">0</span>% complete
         </div>
-        <div class="resolution-buttons">
-          <button id="try-again" class="primary-btn">Try Again</button>
-          <button id="exit-session" class="control-btn">Exit</button>
+        
+        <div class="bsod-qr-section">
+          <div class="bsod-qr">
+            <div class="qr-placeholder">
+              <!-- Fake QR code made of divs -->
+              <div class="qr-row"><span></span><span></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span></span><span class="filled"></span></div>
+              <div class="qr-row"><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span></span></div>
+              <div class="qr-row"><span></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span></div>
+              <div class="qr-row"><span class="filled"></span><span class="filled"></span><span></span><span></span><span class="filled"></span><span class="filled"></span><span></span><span class="filled"></span></div>
+              <div class="qr-row"><span></span><span class="filled"></span><span class="filled"></span><span></span><span></span><span class="filled"></span><span class="filled"></span><span></span></div>
+              <div class="qr-row"><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span><span class="filled"></span></div>
+              <div class="qr-row"><span></span><span class="filled"></span><span></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span><span></span></div>
+              <div class="qr-row"><span class="filled"></span><span></span><span class="filled"></span><span></span><span class="filled"></span><span></span><span class="filled"></span><span class="filled"></span></div>
+            </div>
+          </div>
+          <div class="bsod-info">
+            <p>For more information about this issue and possible fixes, visit</p>
+            <p class="bsod-url">https://windows.com/stopcode</p>
+            <p class="bsod-helpline">If you call a support person, give them this info:</p>
+            <p class="bsod-stopcode">Stop code: MEDITATION_ANXIETY_OVERFLOW</p>
+            <p class="bsod-failedwhat">What failed: <span id="bsod-failed">SystemCalm.exe</span></p>
+          </div>
+        </div>
+        
+        <div class="bsod-stats">
+          <p>Peak Anxiety: <span id="peak-anxiety">0</span>% | Instances Spawned: <span id="instance-count">0</span> | Workers Deployed: <span id="worker-count">0</span></p>
+        </div>
+        
+        <p class="bsod-apology" id="resolution-text"></p>
+        
+        <div class="bsod-buttons">
+          <button id="try-again" class="bsod-btn">Restart Meditation</button>
+          <button id="exit-session" class="bsod-btn secondary">Return to Desktop</button>
         </div>
       </div>
     </div>

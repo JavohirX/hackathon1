@@ -1465,27 +1465,66 @@ class CollapseOrchestrator {
     this.instanceAnimations.forEach(id => cancelAnimationFrame(id));
     this.instanceCanvases.forEach(({ narrationInterval }) => clearInterval(narrationInterval));
     
-    // Fade to black
+    // Fade to black first (like system crash)
     const overlay = document.getElementById('collapse-overlay');
-    overlay.style.transition = 'opacity 2s';
+    overlay.style.transition = 'background 0.3s, opacity 0.5s';
+    overlay.style.background = '#000';
+    
+    await this.sleep(800);
+    
+    // Hide overlay
     overlay.style.opacity = '0';
     
-    await this.sleep(2000);
+    await this.sleep(500);
     
-    // Show resolution
+    // Show BSOD
     const resolution = document.getElementById('resolution-screen');
     resolution.classList.remove('hidden');
     
-    await this.sleep(500);
+    await this.sleep(100);
     resolution.classList.add('visible');
     
-    // Display resolution text
-    const resolutionText = RESOLUTION_SCRIPTS[Math.floor(Math.random() * RESOLUTION_SCRIPTS.length)];
-    document.getElementById('resolution-text').textContent = resolutionText;
+    // Animate the progress percentage (fake loading)
+    const percentEl = document.getElementById('bsod-percent');
+    let percent = 0;
+    const animatePercent = () => {
+      if (percent < 100) {
+        // Random increments to feel more realistic
+        const increment = Math.random() < 0.3 ? 0 : Math.floor(Math.random() * 8) + 1;
+        percent = Math.min(100, percent + increment);
+        percentEl.textContent = percent;
+        
+        // Variable timing for realistic feel
+        const delay = percent < 30 ? 150 : percent < 70 ? 200 : 300;
+        setTimeout(animatePercent, delay + Math.random() * 200);
+      }
+    };
+    animatePercent();
+    
+    // Set the failed module based on anxiety level
+    const failedModule = this.app.stateManager.peakAnxiety > 95 
+      ? 'ANXIETY_OVERFLOW.dll' 
+      : this.app.stateManager.peakAnxiety > 85 
+        ? 'TooManyWorkers.sys'
+        : 'SystemCalm.exe';
+    document.getElementById('bsod-failed').textContent = failedModule;
+    
+    // Display stats
     document.getElementById('peak-anxiety').textContent = this.app.stateManager.peakAnxiety.toFixed(1);
     document.getElementById('instance-count').textContent = this.instanceCount;
     
-    // Narrate
+    // Add worker count if element exists
+    const workerCountEl = document.getElementById('worker-count');
+    if (workerCountEl) {
+      workerCountEl.textContent = this.app.monitor.workers.length;
+    }
+    
+    // Display resolution text (the app's apology)
+    const resolutionText = RESOLUTION_SCRIPTS[Math.floor(Math.random() * RESOLUTION_SCRIPTS.length)];
+    document.getElementById('resolution-text').textContent = '"' + resolutionText + '"';
+    
+    // Narrate the apology after a delay
+    await this.sleep(3000);
     this.app.audioSystem.queueNarration(resolutionText);
     
     // Store collapse data
