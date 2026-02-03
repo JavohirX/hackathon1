@@ -14,9 +14,9 @@
   --accent-anxious: #c75d5d;
   --accent-critical: #dc143c;
   
-  --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
-  --font-body: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'Menlo', 'Monaco', 'Cascadia Code', monospace;
   
   --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -65,7 +65,9 @@ body {
 #landing-page {
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: 
     radial-gradient(ellipse at 50% 0%, rgba(74, 124, 155, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 80%, rgba(123, 104, 238, 0.1) 0%, transparent 40%),
@@ -75,7 +77,11 @@ body {
 .landing-content {
   text-align: center;
   max-width: 500px;
+  width: 100%;
   padding: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  margin: auto;
   animation: fadeInUp 1.2s var(--transition-smooth);
 }
 
@@ -104,9 +110,9 @@ body {
 
 h1 {
   font-family: var(--font-display);
-  font-size: 4.5rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
   background: linear-gradient(135deg, #ffffff 0%, var(--accent-calm) 100%);
   -webkit-background-clip: text;
@@ -115,11 +121,10 @@ h1 {
 }
 
 .subtitle {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
   color: var(--text-secondary);
-  font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 2rem;
   line-height: 1.5;
 }
@@ -127,7 +132,7 @@ h1 {
 .subtitle em {
   color: var(--accent-calm);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .version-badge {
@@ -255,10 +260,7 @@ h1 {
 }
 
 .judge-hint {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 2rem;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-muted);
@@ -640,27 +642,28 @@ h1 {
 /* ===== Narration Display ===== */
 .narration-display {
   position: fixed;
-  bottom: 120px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   max-width: 600px;
+  width: calc(100% - 4rem);
   text-align: center;
   padding: 1rem 2rem;
   pointer-events: none;
+  box-sizing: border-box;
 }
 
 #narration-text {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-family: var(--font-body);
+  font-size: 1.5rem;
   font-weight: 400;
-  font-style: italic;
   color: var(--text-primary);
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.6s var(--transition-smooth);
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   line-height: 1.6;
 }
 
@@ -1069,11 +1072,22 @@ h1 {
 /* ===== Mobile Responsive ===== */
 @media (max-width: 768px) {
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
   
   .subtitle {
     font-size: 1rem;
+  }
+  
+  .landing-content {
+    padding: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  
+  .logo-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
   }
   
   .session-info {
@@ -1090,13 +1104,20 @@ h1 {
     padding: 0.3rem 0.6rem;
   }
   
+  .warning-box {
+    margin: 1rem auto;
+    padding: 0.75rem 1rem;
+  }
+  
   .metrics-panel {
     top: auto;
     bottom: 80px;
     right: 1rem;
-    left: auto;
-    min-width: 180px;
+    left: 1rem;
+    min-width: auto;
     padding: 0.75rem;
+    max-height: 40vh;
+    overflow-y: auto;
   }
   
   .action-log {
@@ -1104,7 +1125,16 @@ h1 {
     left: 1rem;
     right: 1rem;
     width: auto;
-    max-height: 150px;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  
+  .narration-display {
+    bottom: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    padding: 0.75rem 1rem;
   }
   
   .metric-value {
@@ -1128,6 +1158,8 @@ h1 {
   /* BSOD Mobile */
   .bsod-content {
     padding: 1.5rem;
+    max-height: 100vh;
+    overflow-y: auto;
   }
   
   .bsod-sadface {
@@ -1154,6 +1186,35 @@ h1 {
   
   .bsod-buttons {
     justify-content: center;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .logo-icon {
+    font-size: 3rem;
+  }
+  
+  .primary-btn {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .session-info {
+    font-size: 0.8rem;
+  }
+  
+  .text-btn {
+    margin-top: 1.5rem;
   }
 }
 
